@@ -1,0 +1,23 @@
+{
+  "name": "frontendlevel3modal",
+  "version": "1.0.0",
+  "description": "modal for frontendLevel3 course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elijahmylcev/level3frontendModal.git"
+  },
+  "keywords": [
+    "js",
+    "modal"
+  ],
+  "author": "Elijah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elijahmylcev/level3frontendModal/issues"
+  },
+  "homepage": "https://github.com/elijahmylcev/level3frontendModal#readme"
+}
