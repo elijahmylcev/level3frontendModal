@@ -5,6 +5,25 @@ button {
   font-family: 'Raleway', sans-serif;
 }
 
+.trigger {
+  display: block;
+  margin: 40px auto 0 auto;
+  padding: 10px 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: rgba(255, 219, 13, 0.836);
+  &:hover {
+    background-color: #fff;
+    color: rgba(255, 219, 13, 0.836);
+    box-shadow: 0 0px 20px rgba(255, 219, 13, 0.836);
+  }
+}
+
 .modal {
   display: none;
   position: fixed;
