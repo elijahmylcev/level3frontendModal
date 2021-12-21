@@ -1,10 +1,11 @@
 import 'reset-css';
 import '../style.scss';
+import 'animate.css';
 
-function modal(triggerSelectorOpen, modalSelector, triggerSelectorClose) {
+function modal(triggerSelectorOpen, modalSelector, triggerSelectorsClose) {
   const bntOpen = document.querySelector(triggerSelectorOpen);
   const modal = document.querySelector(modalSelector);
-  const btnClose = document.querySelectorAll(triggerSelectorClose);
+  const btnClose = document.querySelectorAll(triggerSelectorsClose);
 
   bntOpen.addEventListener('click', () => {
     modal.style.display = 'block';
@@ -17,4 +18,38 @@ function modal(triggerSelectorOpen, modalSelector, triggerSelectorClose) {
   });
 }
 
-modal('.trigger', '#exampleModal', '[data-close]');
+// modal('.trigger', '#exampleModal', '[data-close]');
+
+class Modal {
+  constructor(triggerSelectorsOpen, modalSelector, selectorsClose) {
+    this.triggers = document.querySelectorAll(triggerSelectorsOpen);
+    this.modal = document.querySelector(modalSelector);
+    this.closeButtons = document.querySelectorAll(selectorsClose);
+  }
+
+  init() {
+    console.log(this.modal);
+    this.open();
+    this.close();
+  }
+
+  open() {
+    this.triggers.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.modal.style.display = 'block';
+      });
+    });
+  }
+
+  close() {
+    this.closeButtons.forEach(btnClose => {
+      btnClose.addEventListener('click', () => {
+        this.modal.style.display = 'none';
+      });
+    });
+  }
+}
+
+const modalDialog = new Modal('.trigger', '#exampleModal', '[data-close]');
+
+modalDialog.init();
