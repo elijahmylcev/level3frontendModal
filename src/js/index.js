@@ -37,6 +37,7 @@ class Modal {
     this.triggers.forEach(btn => {
       btn.addEventListener('click', () => {
         this.modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
       });
     });
   }
@@ -45,6 +46,7 @@ class Modal {
     this.closeButtons.forEach(btnClose => {
       btnClose.addEventListener('click', () => {
         this.modal.style.display = 'none';
+        document.body.style.overflow = '';
       });
     });
   }
