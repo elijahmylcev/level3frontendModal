@@ -6,6 +6,7 @@ button {
 }
 
 .modal {
+  display: none;
   position: fixed;
   left: 0;
   top: 0;
@@ -19,6 +20,7 @@ button {
   &__dialog {
     max-width: 500px;
     margin: 80px auto 0 auto;
+    box-shadow: 0 0 30px #000;
   }
 
   &__content {
@@ -64,11 +66,24 @@ button {
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 3px;
         color: #fff;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        cursor: pointer;
         &.exit {
           background-color: rgba(255, 0, 0, 0.836);
+          &:hover {
+            background-color: #fff;
+            color: rgba(255, 0, 0, 0.836);
+            box-shadow: 0 0px 20px rgba(255, 0, 0, 0.836);
+          }
         }
         &.success {
           background-color: rgba(0, 128, 0, 0.822);
+          &:hover {
+            background-color: #fff;
+            color: rgba(0, 128, 0, 0.822);
+            box-shadow: 0 0px 20px rgba(0, 128, 0, 0.836);
+          }
         }
       }
     }
