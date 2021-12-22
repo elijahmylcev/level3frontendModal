@@ -7,10 +7,10 @@ class Modal {
     this.triggers = document.querySelectorAll(triggerSelectorsOpen);
     this.modal = document.querySelector(modalSelector);
     this.closeButtons = document.querySelectorAll(selectorsClose);
+    this.scroll = this.calcScroll();
   }
 
   init() {
-    console.log(this.modal);
     this.open();
     this.close();
   }
@@ -20,6 +20,7 @@ class Modal {
       btn.addEventListener('click', () => {
         this.modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = `${this.scroll}px`;
       });
     });
   }
@@ -29,6 +30,7 @@ class Modal {
       btnClose.addEventListener('click', () => {
         this.modal.style.display = 'none';
         document.body.style.overflow = '';
+        document.body.style.marginRight = `0px`;
       });
     });
   }
