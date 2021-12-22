@@ -2,24 +2,6 @@ import 'reset-css';
 import '../style.scss';
 import 'animate.css';
 
-function modal(triggerSelectorOpen, modalSelector, triggerSelectorsClose) {
-  const bntOpen = document.querySelector(triggerSelectorOpen);
-  const modal = document.querySelector(modalSelector);
-  const btnClose = document.querySelectorAll(triggerSelectorsClose);
-
-  bntOpen.addEventListener('click', () => {
-    modal.style.display = 'block';
-  });
-
-  btnClose.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-  });
-}
-
-// modal('.trigger', '#exampleModal', '[data-close]');
-
 class Modal {
   constructor(triggerSelectorsOpen, modalSelector, selectorsClose) {
     this.triggers = document.querySelectorAll(triggerSelectorsOpen);
@@ -49,6 +31,22 @@ class Modal {
         document.body.style.overflow = '';
       });
     });
+  }
+
+  calcScroll() {
+    let div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.appendChild(div);
+
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+
+    div.remove();
+
+    return scrollWidth;
   }
 }
 
