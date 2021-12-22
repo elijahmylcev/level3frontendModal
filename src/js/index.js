@@ -19,9 +19,15 @@ class Modal {
   open() {
     this.triggers.forEach(btn => {
       btn.addEventListener('click', () => {
+        this.modal.querySelector('.modal__dialog').classList.add('fadeIn');
+
         this.modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         document.body.style.marginRight = `${this.scroll}px`;
+
+        setTimeout(() => {
+          this.modal.querySelector('.modal__dialog').classList.remove('fadeIn');
+        }, 550);
       });
     });
   }
@@ -29,18 +35,36 @@ class Modal {
   close() {
     this.closeButtons.forEach(btnClose => {
       btnClose.addEventListener('click', () => {
+        this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
+
+        // this.modal.style.display = 'none';
+        // document.body.style.overflow = '';
+        // document.body.style.marginRight = `0px`;
+      });
+
+      setTimeout(() => {
         this.modal.style.display = 'none';
         document.body.style.overflow = '';
         document.body.style.marginRight = `0px`;
-      });
+        this.modal.querySelector('.modal__dialog').classList.remove('fadeOut');
+      }, 500);
     });
 
     this.modal.addEventListener('click', e => {
       if (e.target === this.modal) {
+        this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
+
+        // this.modal.style.display = 'none';
+        // document.body.style.overflow = '';
+        // document.body.style.marginRight = `0px`;
+      }
+
+      setTimeout(() => {
         this.modal.style.display = 'none';
         document.body.style.overflow = '';
         document.body.style.marginRight = `0px`;
-      }
+        this.modal.querySelector('.modal__dialog').classList.remove('fadeOut');
+      }, 500);
     });
   }
 
