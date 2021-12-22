@@ -7,6 +7,7 @@ class Modal {
     this.triggers = document.querySelectorAll(triggerSelectorsOpen);
     this.modal = document.querySelector(modalSelector);
     this.closeButtons = document.querySelectorAll(selectorsClose);
+    // Ширина полосы прокрутки
     this.scroll = this.calcScroll();
   }
 
@@ -32,6 +33,14 @@ class Modal {
         document.body.style.overflow = '';
         document.body.style.marginRight = `0px`;
       });
+    });
+
+    this.modal.addEventListener('click', e => {
+      if (e.target === this.modal) {
+        this.modal.style.display = 'none';
+        document.body.style.overflow = '';
+        document.body.style.marginRight = `0px`;
+      }
     });
   }
 
