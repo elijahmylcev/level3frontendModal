@@ -15,7 +15,6 @@ class Modal {
 
     // Close call
     this.modal.addEventListener('click', e => {
-      console.log(e.target, e.target.getAttribute('data-close'));
       if (e.target !== this.modal) {
         if (e.target.getAttribute('data-close')) {
           this.close();
@@ -43,13 +42,13 @@ class Modal {
   }
 
   close() {
-    this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
+    this.modal.firstElementChild.classList.add('fadeOut');
 
     setTimeout(() => {
       this.modal.style.display = 'none';
       document.body.style.overflow = '';
       document.body.style.marginRight = `0px`;
-      this.modal.querySelector('.modal__dialog').classList.remove('fadeOut');
+      this.modal.firstElementChild.classList.remove('fadeOut');
     }, 500);
   }
 
@@ -61,11 +60,8 @@ class Modal {
     div.style.visibility = 'hidden';
 
     document.body.appendChild(div);
-
     let scrollWidth = div.offsetWidth - div.clientWidth;
-
     div.remove();
-
     return scrollWidth;
   }
 }
