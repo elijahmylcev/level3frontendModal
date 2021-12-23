@@ -12,10 +12,12 @@ class Modal {
 
   init() {
     this.open();
+
+    // Close call
     this.modal.addEventListener('click', e => {
-      console.log(e.target);
-      if (e.target === this.modal.firstChild) {
-        if (e.target.getAttribute('[data-close]')) {
+      console.log(e.target, e.target.getAttribute('data-close'));
+      if (e.target !== this.modal) {
+        if (e.target.getAttribute('data-close')) {
           this.close();
         }
       } else {
@@ -42,10 +44,6 @@ class Modal {
 
   close() {
     this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
-
-    // this.modal.style.display = 'none';
-    // document.body.style.overflow = '';
-    // document.body.style.marginRight = `0px`;
 
     setTimeout(() => {
       this.modal.style.display = 'none';
