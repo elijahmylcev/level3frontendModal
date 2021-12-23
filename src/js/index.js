@@ -76,9 +76,10 @@ class ModalCreateConfig extends Modal {
     this.text = text;
   }
 
-  init() {
-    super.init();
+  initiation() {
     this.createWithConfig();
+
+    console.log(this);
   }
 
   createWithConfig() {
@@ -110,6 +111,8 @@ class ModalCreateConfig extends Modal {
       modal.innerHTML = standard;
       document.body.appendChild(modal);
     }
+
+    // this.init();
   }
 }
 
@@ -121,4 +124,4 @@ const testModal = new ModalCreateConfig('.triggerTest', '#exampleModalSecond', '
   header: 'Hello',
   body: 'world',
 });
-testModal.createWithConfig();
+testModal.initiation();
