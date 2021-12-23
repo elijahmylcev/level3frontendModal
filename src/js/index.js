@@ -10,7 +10,7 @@ class Modal {
   }
 
   init() {
-    this.open();
+    this.open(this.triggers, this.modal);
 
     // Close call
     this.modal.addEventListener('click', e => {
@@ -24,17 +24,17 @@ class Modal {
     });
   }
 
-  open() {
-    this.triggers.forEach(btn => {
+  open(triggers, modal) {
+    triggers.forEach(btn => {
       btn.addEventListener('click', () => {
-        this.modal.querySelector('.modal__dialog').classList.add('fadeIn');
+        modal.firstElementChild.classList.add('fadeIn');
 
-        this.modal.style.display = 'block';
+        modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         document.body.style.marginRight = `${this.scroll}px`;
 
         setTimeout(() => {
-          this.modal.querySelector('.modal__dialog').classList.remove('fadeIn');
+          modal.firstElementChild.classList.remove('fadeIn');
         }, 550);
       });
     });
@@ -49,36 +49,6 @@ class Modal {
       document.body.style.marginRight = `0px`;
       this.modal.firstElementChild.classList.remove('fadeOut');
     }, 500);
-  }
-
-  createWithConfig({ layout = '', text, triggers = null } = {}) {
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
-    modal.setAttribute('id', 'exampleModal');
-    const standard = `
-      <div class="modal__dialog">
-          <div class="modal__content">
-            <button class="close" data-close="true"><span data-close="true">&times;</span></button>
-
-            <div class="modal__content_header">
-              <div class="modal__content_header_title">${text.header}</div>
-            </div>
-            <div class="modal__content_body">
-              ${text.body}
-            </div>
-            <div class="modal__content_footer">
-              <button class="modal__content_footer_btn exit" data-close="true">Exit</button>
-              <button class="modal__content_footer_btn success">Ok</button>
-            </div>
-          </div>
-        </div>
-      `;
-
-    if (layout) {
-      return;
-    } else {
-      modal.innerHTML = standard;
-    }
   }
 
   calcScroll() {
@@ -99,9 +69,58 @@ const modalDialog = new Modal('.trigger', '#exampleModal', '[data-close]');
 
 modalDialog.init();
 
-const modalTets = new Modal().createWithConfig({
+createWithConfig({
   text: {
     header: 'Hello',
     body: 'World',
   },
 });
+
+function createWithConfig({ layout = '', text, triggers = null } = {}) {
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+  modal.setAttribute('id', 'exampleModal2');
+  const standard = `
+    <div class="modal__dialog">
+        <div class="modal__content">
+          <button class="close" data-close="true"><span data-close="true">&times;</span></button>
+
+          <div class="modal__content_header">
+            <div class="modal__content_header_title">${text.header}</div>
+          </div>
+          <div class="modal__content_body">
+            ${text.body}
+          </div>
+          <div class="modal__content_footer">
+            <button class="modal__content_footer_btn exit" data-close="true">Exit</button>
+            <button class="modal__content_footer_btn success">Ok</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+  if (layout) {
+    return;
+  } else {
+    modal.innerHTML = standard;
+    document.body.appendChild(modal);
+  }
+
+  open(document.querySelectorAll('.triggerTest'), document.querySelector('#exampleModal2'));
+}
+
+function open(triggers, modal) {
+  triggers.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.firstElementChild.classList.add('fadeIn');
+
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${this.scroll}px`;
+
+      setTimeout(() => {
+        modal.firstElementChild.classList.remove('fadeIn');
+      }, 550);
+    });
+  });
+}
