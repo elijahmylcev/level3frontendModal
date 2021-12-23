@@ -6,7 +6,6 @@ class Modal {
     this.triggers = document.querySelectorAll(triggerSelectorsOpen);
     this.modal = document.querySelector(modalSelector);
     this.closeButtons = document.querySelectorAll(selectorsClose);
-    // Ширина полосы прокрутки
     this.scroll = this.calcScroll();
   }
 
@@ -52,6 +51,36 @@ class Modal {
     }, 500);
   }
 
+  createWithConfig({ layout = '', text, triggers = null } = {}) {
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.setAttribute('id', 'exampleModal');
+    const standard = `
+      <div class="modal__dialog">
+          <div class="modal__content">
+            <button class="close" data-close="true"><span data-close="true">&times;</span></button>
+
+            <div class="modal__content_header">
+              <div class="modal__content_header_title">${text.header}</div>
+            </div>
+            <div class="modal__content_body">
+              ${text.body}
+            </div>
+            <div class="modal__content_footer">
+              <button class="modal__content_footer_btn exit" data-close="true">Exit</button>
+              <button class="modal__content_footer_btn success">Ok</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+    if (layout) {
+      return;
+    } else {
+      modal.innerHTML = standard;
+    }
+  }
+
   calcScroll() {
     let div = document.createElement('div');
     div.style.width = '50px';
@@ -69,3 +98,10 @@ class Modal {
 const modalDialog = new Modal('.trigger', '#exampleModal', '[data-close]');
 
 modalDialog.init();
+
+const modalTets = new Modal().createWithConfig({
+  text: {
+    header: 'Hello',
+    body: 'World',
+  },
+});
