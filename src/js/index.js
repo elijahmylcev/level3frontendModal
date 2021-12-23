@@ -1,6 +1,5 @@
 import 'reset-css';
 import '../style.scss';
-import 'animate.css';
 
 class Modal {
   constructor(triggerSelectorsOpen, modalSelector, selectorsClose) {
@@ -13,7 +12,16 @@ class Modal {
 
   init() {
     this.open();
-    this.close();
+    this.modal.addEventListener('click', e => {
+      console.log(e.target);
+      if (e.target === this.modal.firstChild) {
+        if (e.target.getAttribute('[data-close]')) {
+          this.close();
+        }
+      } else {
+        this.close();
+      }
+    });
   }
 
   open() {
@@ -33,39 +41,18 @@ class Modal {
   }
 
   close() {
-    this.closeButtons.forEach(btnClose => {
-      btnClose.addEventListener('click', () => {
-        this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
+    this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
 
-        // this.modal.style.display = 'none';
-        // document.body.style.overflow = '';
-        // document.body.style.marginRight = `0px`;
-      });
+    // this.modal.style.display = 'none';
+    // document.body.style.overflow = '';
+    // document.body.style.marginRight = `0px`;
 
-      setTimeout(() => {
-        this.modal.style.display = 'none';
-        document.body.style.overflow = '';
-        document.body.style.marginRight = `0px`;
-        this.modal.querySelector('.modal__dialog').classList.remove('fadeOut');
-      }, 500);
-    });
-
-    this.modal.addEventListener('click', e => {
-      if (e.target === this.modal) {
-        this.modal.querySelector('.modal__dialog').classList.add('fadeOut');
-
-        // this.modal.style.display = 'none';
-        // document.body.style.overflow = '';
-        // document.body.style.marginRight = `0px`;
-      }
-
-      setTimeout(() => {
-        this.modal.style.display = 'none';
-        document.body.style.overflow = '';
-        document.body.style.marginRight = `0px`;
-        this.modal.querySelector('.modal__dialog').classList.remove('fadeOut');
-      }, 500);
-    });
+    setTimeout(() => {
+      this.modal.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.marginRight = `0px`;
+      this.modal.querySelector('.modal__dialog').classList.remove('fadeOut');
+    }, 500);
   }
 
   calcScroll() {
