@@ -10,31 +10,35 @@ class Modal {
   }
 
   init() {
-    this.open(this.triggers, this.modal);
+    this.open();
 
     // Close call
-    this.modal.addEventListener('click', e => {
-      if (e.target !== this.modal) {
-        if (e.target.getAttribute('data-close')) {
+    try {
+      this.modal.addEventListener('click', e => {
+        if (e.target !== this.modal) {
+          if (e.target.getAttribute('data-close')) {
+            this.close();
+          }
+        } else {
           this.close();
         }
-      } else {
-        this.close();
-      }
-    });
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  open(triggers, modal) {
-    triggers.forEach(btn => {
+  open() {
+    this.triggers.forEach(btn => {
       btn.addEventListener('click', () => {
-        modal.firstElementChild.classList.add('fadeIn');
+        this.modal.firstElementChild.classList.add('fadeIn');
 
-        modal.style.display = 'block';
+        this.modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         document.body.style.marginRight = `${this.scroll}px`;
 
         setTimeout(() => {
-          modal.firstElementChild.classList.remove('fadeIn');
+          this.modal.firstElementChild.classList.remove('fadeIn');
         }, 550);
       });
     });
@@ -65,31 +69,32 @@ class Modal {
   }
 }
 
-const modalDialog = new Modal('.trigger', '#exampleModal', '[data-close]');
+class ModalCreateConfig extends Modal {
+  constructor(triggerSelectorsOpen, modalSelector, selectorsClose, layout, text) {
+    super(triggerSelectorsOpen, modalSelector, selectorsClose);
+    this.layout = layout;
+    this.text = text;
+  }
 
-modalDialog.init();
+  init() {
+    super.init();
+    this.createWithConfig();
+  }
 
-createWithConfig({
-  text: {
-    header: 'Hello',
-    body: 'World',
-  },
-});
-
-function createWithConfig({ layout = '', text, triggers = null } = {}) {
-  const modal = document.createElement('div');
-  modal.classList.add('modal');
-  modal.setAttribute('id', 'exampleModal2');
-  const standard = `
+  createWithConfig() {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.setAttribute('id', 'exampleModalSecond');
+    const standard = `
     <div class="modal__dialog">
         <div class="modal__content">
           <button class="close" data-close="true"><span data-close="true">&times;</span></button>
 
           <div class="modal__content_header">
-            <div class="modal__content_header_title">${text.header}</div>
+            <div class="modal__content_header_title">${this.text.header}</div>
           </div>
           <div class="modal__content_body">
-            ${text.body}
+            ${this.text.body}
           </div>
           <div class="modal__content_footer">
             <button class="modal__content_footer_btn exit" data-close="true">Exit</button>
@@ -99,28 +104,21 @@ function createWithConfig({ layout = '', text, triggers = null } = {}) {
       </div>
     `;
 
-  if (layout) {
-    return;
-  } else {
-    modal.innerHTML = standard;
-    document.body.appendChild(modal);
+    if (this.layout) {
+      return;
+    } else {
+      modal.innerHTML = standard;
+      document.body.appendChild(modal);
+    }
   }
-
-  open(document.querySelectorAll('.triggerTest'), document.querySelector('#exampleModal2'));
 }
 
-function open(triggers, modal) {
-  triggers.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modal.firstElementChild.classList.add('fadeIn');
+const modalDialog = new Modal('.trigger', '#exampleModal', '[data-close]');
 
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-      document.body.style.marginRight = `${this.scroll}px`;
+modalDialog.init();
 
-      setTimeout(() => {
-        modal.firstElementChild.classList.remove('fadeIn');
-      }, 550);
-    });
-  });
-}
+const testModal = new ModalCreateConfig('.triggerTest', '#exampleModalSecond', '[data-close]', '', {
+  header: 'Hello',
+  body: 'world',
+});
+testModal.createWithConfig();
