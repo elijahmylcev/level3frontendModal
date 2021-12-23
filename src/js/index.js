@@ -72,20 +72,22 @@ class Modal {
 class ModalCreateConfig extends Modal {
   constructor(triggerSelectorsOpen, modalSelector, selectorsClose, layout, text) {
     super(triggerSelectorsOpen, modalSelector, selectorsClose);
+    this.triggerSelectorsOpen = triggerSelectorsOpen;
+    this.modalSelector = modalSelector;
+    this.selectorsClose = selectorsClose;
     this.layout = layout;
     this.text = text;
   }
 
   initiation() {
     this.createWithConfig();
-
-    console.log(this);
+    this.init();
   }
 
   createWithConfig() {
     const modal = document.createElement('div');
     modal.classList.add('modal');
-    modal.setAttribute('id', 'exampleModalSecond');
+    modal.setAttribute('id', this.modalSelector.slice(1));
     const standard = `
     <div class="modal__dialog">
         <div class="modal__content">
@@ -111,13 +113,14 @@ class ModalCreateConfig extends Modal {
       modal.innerHTML = standard;
       document.body.appendChild(modal);
     }
-
-    // this.init();
+    this.modal = document.querySelector(this.modalSelector);
+    this.triggers = document.querySelectorAll(this.triggerSelectorsOpen);
+    // this.closeButtons = document.querySelectorAll(this.selectorsClose);
+    console.log(this.modal, this.triggers, this.closeButtons);
   }
 }
 
 const modalDialog = new Modal('.trigger', '#exampleModal', '[data-close]');
-
 modalDialog.init();
 
 const testModal = new ModalCreateConfig('.triggerTest', '#exampleModalSecond', '[data-close]', '', {
