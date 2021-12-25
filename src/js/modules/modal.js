@@ -32,7 +32,9 @@ export default class Modal {
 
         this.modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        document.body.style.marginRight = `${this.scroll}px`;
+        if (document.body.scrollHeight >= window.innerHeight) {
+          document.body.style.marginRight = `${this.scroll}px`;
+        }
 
         setTimeout(() => {
           this.modal.firstElementChild.classList.remove('fadeIn');

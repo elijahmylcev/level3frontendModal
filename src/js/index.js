@@ -11,3 +11,5 @@ const testModal = new ModalCreateConfig('.triggerTest', '#exampleModalSecond', '
   body: 'world',
 });
 testModal.createWithConfig();
+
+console.log();
