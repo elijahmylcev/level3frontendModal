@@ -11,11 +11,15 @@ export default class ModalCreateConfig extends Modal {
   }
 
   createWithConfig() {
-    const modal = document.createElement('div');
-    modal.classList.add('modal');
-    modal.setAttribute('id', this.modalSelector.slice(1));
-    const standard = `
-    <div class="modal__dialog">
+    try {
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+      modal.setAttribute('id', this.modalSelector.slice(1));
+
+      console.log(modal);
+
+      const standard = `
+      <div class="modal__dialog">
         <div class="modal__content">
           <button class="close" data-close="true"><span data-close="true">&times;</span></button>
 
@@ -33,15 +37,26 @@ export default class ModalCreateConfig extends Modal {
       </div>
     `;
 
-    if (this.layout) {
-      return;
-    } else {
-      modal.innerHTML = standard;
-      document.body.appendChild(modal);
-    }
-    this.modal = document.querySelector(this.modalSelector);
-    this.triggers = document.querySelectorAll(this.triggerSelectorsOpen);
+      if (this.layout) {
+        modal.innerHTML = `
+        <div class="modal__dialog">
+          <div class="modal__content">
+            <button class="close" data-close="true"><span data-close="true">&times;</span></button>
+            ${this.layout}
+          </div>
+        </div>`;
+      } else {
+        modal.innerHTML = standard;
+      }
 
-    this.init();
+      document.body.appendChild(modal);
+
+      this.modal = document.querySelector(this.modalSelector);
+      this.triggers = document.querySelectorAll(this.triggerSelectorsOpen);
+
+      this.init();
+    } catch (error) {
+      console.error(error, code);
+    }
   }
 }
