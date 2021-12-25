@@ -16,8 +16,6 @@ export default class ModalCreateConfig extends Modal {
       modal.classList.add('modal');
       modal.setAttribute('id', this.modalSelector.slice(1));
 
-      console.log(modal);
-
       const standard = `
       <div class="modal__dialog">
         <div class="modal__content">
