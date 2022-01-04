@@ -4,7 +4,6 @@
   "description": "modal for frontendLevel3 course",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
@@ -34,7 +33,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.4.0",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "cypress": "^9.1.1",
+    "cypress": "^9.2.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.4.2",
     "node-sass": "^6.0.1",
